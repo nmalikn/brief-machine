@@ -1,0 +1,433 @@
+:root {
+  --desktop: #9b2cff;
+  --surface: #ece9d8;
+  --ink: #000;
+  --muted: #5f5f5f;
+  --title-from: #14101c;
+  --title-to: #9b2cff;
+  --sans: Arial, Helvetica, sans-serif;
+  --sunken: inset -1px -1px #fff, inset 1px 1px #808080, inset -2px -2px #dfdfdf,
+    inset 2px 2px #0a0a0a;
+  --raised: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+  --row: 19px;
+  --visible-rows: 23;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--desktop);
+  color: var(--ink);
+}
+
+.desktop {
+  display: grid;
+  gap: 16px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Window chrome */
+
+.window {
+  background: var(--surface);
+  min-width: 0;
+}
+
+/* 98.css turns smoothing off for its pixel font, which mangles Arial */
+.window,
+.window * {
+  -webkit-font-smoothing: antialiased;
+}
+
+.window-body {
+  margin: 12px;
+}
+
+.title-bar {
+  padding: 5px 6px 5px 8px;
+  background: linear-gradient(90deg, var(--title-from), var(--title-to));
+}
+
+.title-bar-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font: 700 18px/1.3 var(--sans);
+  letter-spacing: 0;
+}
+
+.recent-window .title-bar-text {
+  font-size: 14px;
+}
+
+.title-icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  padding: 1px;
+  background: var(--surface);
+  box-shadow: 1px 1px 0 #000;
+}
+
+.title-bar-controls button {
+  background-color: var(--surface);
+}
+
+button {
+  background: var(--surface);
+}
+
+/* Columns */
+
+.machine {
+  display: grid;
+  grid-template-columns: minmax(0, 2.6fr) minmax(300px, 1fr);
+  gap: 12px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  min-height: 26px;
+  padding: 3px 6px 3px 8px;
+  background: var(--surface);
+  box-shadow: var(--raised);
+}
+
+.column-title {
+  font: 700 13px/1 var(--sans);
+}
+
+.column-head input + label {
+  font: 10px/13px var(--sans);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.column-head input:focus:not(:focus-visible) + label {
+  outline: none;
+}
+
+.listbox {
+  flex: 1 1 auto;
+  height: 0;
+  min-height: calc(var(--row) * var(--visible-rows) + 6px);
+  margin: 0;
+  padding: 1px;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  list-style: none;
+}
+
+.listbox:focus {
+  outline: 1px dotted #000;
+  outline-offset: -2px;
+}
+
+.option {
+  height: var(--row);
+  padding: 0 3px;
+  overflow: hidden;
+  font: 700 13px/var(--row) var(--sans);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: default;
+  user-select: none;
+}
+
+.option[aria-selected="true"] {
+  background: #000;
+  color: #fff;
+}
+
+/* Preview */
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  box-shadow: var(--sunken);
+}
+
+.brief {
+  flex: 1;
+  /* Room for the longest brief, so the page doesn't jump during a spin */
+  min-height: 6.75em;
+  margin: 0;
+  font: 400 17px/1.35 var(--sans);
+}
+
+.brief b {
+  font-weight: 700;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+
+button.swatch {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  height: 64px;
+  padding: 0 0 6px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: var(--sunken);
+  font: 700 10px/1 var(--sans);
+  text-shadow: none;
+  cursor: pointer;
+}
+
+button.swatch:active {
+  padding: 1px 0 5px;
+  text-shadow: none;
+}
+
+button.swatch:focus {
+  outline: 1px dotted currentColor;
+  outline-offset: -5px;
+}
+
+button.swatch:disabled {
+  color: var(--muted);
+  background: transparent;
+  cursor: default;
+}
+
+button.swatch.is-next {
+  outline: 1px dashed #000;
+  outline-offset: -5px;
+}
+
+.meme-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 216px;
+  padding: 3px;
+  background: #000;
+  box-shadow: var(--sunken);
+}
+
+#meme {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+
+.pick-hint {
+  margin: -6px 0 -4px;
+  font: 400 10px/1.2 var(--sans);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.preview-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.preview-actions button {
+  min-width: 0;
+  min-height: 30px;
+  font: 700 13px/1 var(--sans);
+}
+
+/* Generate */
+
+.generate-row {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 14px;
+}
+
+button.generate {
+  width: min(320px, 100%);
+  min-height: 42px;
+  font: 400 18px/1 var(--sans);
+  cursor: pointer;
+}
+
+/* Tiny status line: credit on the left, status on the right */
+
+.footline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 400 10px/1.2 var(--sans);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Recent */
+
+.recent {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 400 13px/1.35 var(--sans);
+}
+
+.recent-thumb {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px #808080;
+}
+
+.recent-chips {
+  display: flex;
+  flex: none;
+  height: 16px;
+  box-shadow: 0 0 0 1px #808080;
+}
+
+.recent-chips span {
+  width: 12px;
+}
+
+.recent-empty {
+  margin: 0;
+  font: 400 13px/1.35 var(--sans);
+  color: var(--muted);
+}
+
+.recent:not(:empty) + .recent-empty {
+  display: none;
+}
+
+/* Preview drops below the columns once it can't sit beside four of them */
+
+@media (max-width: 1080px) {
+  .machine {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :root {
+    --visible-rows: 12;
+  }
+
+  .brief {
+    min-height: 4.05em;
+  }
+
+  .meme-stage {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+/* Phone: columns stack vertically */
+
+@media (max-width: 600px) {
+  :root {
+    --visible-rows: 5;
+    --row: 22px;
+  }
+
+  .desktop {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .window-body {
+    margin: 8px;
+  }
+
+  .title-bar-text {
+    font-size: 16px;
+  }
+
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .listbox {
+    flex: none;
+    height: calc(var(--row) * var(--visible-rows) + 6px);
+    min-height: 0;
+  }
+
+  .option {
+    font-size: 14px;
+  }
+
+  .meme-stage {
+    height: 240px;
+  }
+
+  /* Bigger tap target without making the header taller */
+  .column-head input + label {
+    margin-block: -10px;
+    padding-block: 10px;
+    font-size: 12px;
+  }
+
+  .brief {
+    min-height: 8.1em;
+  }
+
+  button.swatch {
+    height: 60px;
+  }
+
+  button.generate {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .recent-item {
+    align-items: flex-start;
+  }
+
+  .recent-chips {
+    margin-top: 2px;
+  }
+
+  .recent-chips span {
+    width: 8px;
+  }
+}

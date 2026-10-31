@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brief Machine</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/98.css@0.1.21/dist/98.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="desktop">
+      <section class="window machine-window" aria-labelledby="app-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="app-title">
+            <img class="title-icon" src="logo.png" alt="" />
+            Brief Machine
+          </div>
+          <div class="title-bar-controls" aria-hidden="true">
+            <button aria-label="Close" tabindex="-1"></button>
+          </div>
+        </div>
+
+        <div class="window-body">
+          <div class="machine">
+            <div class="columns" id="columns"></div>
+
+            <section class="preview" aria-label="Your brief">
+              <p class="brief" id="brief" aria-live="polite"></p>
+              <div class="meme-stage">
+                <canvas id="meme" role="img"></canvas>
+              </div>
+              <p class="pick-hint" id="pick-hint">Click the picture to pick 5 colors</p>
+              <div class="swatches" id="swatches"></div>
+              <div class="preview-actions">
+                <button id="clear-colors" type="button">Clear colors</button>
+                <button id="copy-brief" type="button">Copy brief</button>
+              </div>
+            </section>
+          </div>
+
+          <div class="generate-row">
+            <button class="generate" id="generate" type="button">Generate</button>
+          </div>
+
+          <footer class="footline">
+            <span>Inspired by MUCK © Oddly Specific</span>
+            <span id="status" role="status">READY</span>
+          </footer>
+        </div>
+      </section>
+
+      <section class="window recent-window" aria-labelledby="recent-title">
+        <div class="title-bar">
+          <div class="title-bar-text" id="recent-title">Recent</div>
+        </div>
+        <div class="window-body">
+          <ol class="recent" id="recent"></ol>
+          <p class="recent-empty" id="recent-empty">No briefs yet. Press Generate.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="images.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
